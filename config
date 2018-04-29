@@ -1,66 +1,210 @@
-[options]
-font = Roboto Mono, 11
-scrollback_lines = 10000
+## -- i3-Gaps Settings -- ##
+
+gaps inner 15
+gaps outer 15
+smart_gaps on
+hide_edge_borders both
+new_window none # -- Removes Title Also -- ##
+
+bindsym $mod+Shift+b gaps inner all set 0; gaps outer all set 0
+bindsym $mod+Shift+t gaps inner all set 10 gaps outer all set 10
+bindsym $mod+b gaps outer current plus 5
+bindsym $mod+t gaps outer current minus 5
+
+## -- End i3-Gaps Settings -- ##
+
+## -- Set Mod Keys -- ##
+
+	## -- Alt_L -- ##
+set $mod Mod1
+
+	## -- Alt_R -- ##
+set $mod1 Mod3
+
+## -- End Mod Keys -- ##
+
+## -- Basic Definitions -- ##
+	## -- For Floating URxvt Terminal -- ##
+set $term --no-startup-id urxvt -name dropdown
+
+set $shutdown sudo shutdown -h now
+set $reboot sudo reboot
+
+## -- Font Settings -- ##
+font pango:roboto 9
+
+## -- Kill Focused Window -- ##
+bindsym $mod+k kill
+
+## -- Change Window Focus -- ##
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+## -- Move Focused Window -- ##
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+## Fullscreen Floating Window -- ##
+bindsym $mod+Shift+f fullscreen toggle
+
+## -- Focus Tiling/Floating Windows
+bindsym $mod+space focus mode_toggle
+
+## -- Set Workspaces -- ##
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+## -- Assign Workspaces -- ##
+for_window[class="Termite"] move container to workspace $ws1
+for_window[class="Atom"] move container to workspace $ws2
+for_window[class="Waterfox"] move container to workspace $ws3
+for_window[class="Chromium"] move container to workspace $ws3
+for_window[class="vlc"] move container to workspace $ws4
+for_window[class="Gimp"] move container to workspace $ws4
+for_window[class="Easytag"] move container to workspace $ws4
+for_window[class="libreoffice"] move container to workspace $ws5
+for_window[class="Thunderbird"] move container to workspace $ws6
+for_window[class="Deluge"] move container to workspace $ws6
 
 
-# $BROWSER is used by default if set, with xdg-open as a fallback
-#browser = xdg-open
 
-# "system", "on" or "off"
-#cursor_blink = system
+for_window[class="URxvt" instance="dropdown"] floating enable
+for_window[class="URxvt" instance="dropdown"] resize set 600 375
+for_window[class="URxvt" instance="dropdown"] move position center
 
-# "block", "underline" or "ibeam"
-#cursor_shape = block
+for_window[class="Termite"] floating enable
+for_window[class="Termite"] resize set 600 375
+for_window[class="Termite"] move position center
 
-# Hide links that are no longer valid in url select overlay mode
-#filter_unmatched_urls = true
+for_window[class="Pcmanfm"] floating enable
+for_window[class="Pcmanfm"] resize set 800 500
+for_window[class="Pcmanfm"] move position center
 
-# Emit escape sequences for extra modified keys
-#modify_other_keys = false
+for_window[class="Gedit"] floating enable
+for_window[class="Gedit"] resize set 800 500
+for_window[class="Gedit"] move position center
 
-# set size hints for the window
-#size_hints = false
+## -- Status Bar -- ##
+bar {
+	   mode hide
+	   position top
+#        status_command i3status
+}
 
-# "off", "left" or "right"
-#scrollbar = off
+## -- Hide/Show Menu Bar -- ##
+bindsym $mod+m bar mode toggle
 
-[colors]
-# If both of these are unset, cursor falls back to the foreground color,
-# and cursor_foreground falls back to the background color.
-#cursor = #dcdccc
-#cursor_foreground = #dcdccc
+	## -- Startup Applications -- ##
+## -- Background -- ##
+exec --no-startup-id xmodmap ~/.Xmodmap
+exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
+exec --no-startup-id compton --config /home/zero/.config/compton.conf
+exec --no-startup-id conky -c /home/zero/.conkycolors/conkyrc
+exec --no-startup-id xrdb -merge ~/.Xresources
+exec --no-startup-id mpd
+exec --no-startup-id "sh -c 'sleep 13; exec termite -e ncmpcpp'"
+exec --no-startup-id "sh -c 'sleep 18; exec atom'"
+	## -- End Startup Applications -- ##
 
-# 20% background transparency (requires a compositor)
-background = rgba(0, 0, 0, 0.8)
-forground = #F8F8F2
+## -- XF86 Keys -- ##
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 3+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 3- unmute"
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86AudioPlay exec mpc play
+bindsym XF86AudioPrev exec mpc prev
+bindsym XF86AudioNext exec mpc next
+bindsym Print exec "scrot -m '/home/zero/Pictures/Screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png'"
 
-# Colors from color0 to color254 can be set
-color0 = #272822
-color1 = #F92672
-color2 = #A6E22E
-color3 = #F4BF75
-color4 = #66D9EF
-color5 = #AE81FF
-color6 = #A1EFE4
-color7 = #F8F8F2
-color8 = #75715E
-color9 = #F92672
-color10 = #A6E22E
-color11 = #F4BF75
-color12 = #66D9EF
-color13 = #AE81FF
-color14 = #A1EFE4
-color15 = #F8F8F2
+## -- Restart i3 While Preserving Layout -- ##
+bindsym $mod+r restart
 
-[hints]
-#font = Monospace 12
-#foreground = #dcdccc
-#background = #3f3f3f
-#active_foreground = #e68080
-#active_background = #3f3f3f
-#padding = 2
-#border = #3f3f3f
-#border_width = 0.5
-#roundness = 2.0
+## -- Exit i3 Session -- ##
+bindsym $mod+Escape exec "i3-nagbar -t warning -m 'Do You Want TO Exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# vim: ft=dosini cms=#%s
+## -- Reboot -- ##
+bindsym $mod+Shift+r exec $reboot
+
+## -- Shutdown -- ##
+bindsym $mod+Shift+Escape exec $shutdown
+
+## -- i3lock -- ##
+bindsym $mod+l exec --no-startup-id /home/zero/.config/i3/matrixi3lock.sh
+
+## -- Terminals -- ##
+bindsym $mod+Return exec --no-startup-id urxvt -e bash -c "cmatrix&&bash"
+bindsym $mod+Shift+Return exec --no-startup-id $term -e bash -c "pipes&&bash"
+
+## -- Program Launcher -- ##
+bindsym $mod+d exec --no-startup-id rofi -show run
+
+## -- File Manager -- ##
+bindsym $mod+p exec --no-startup-id pcmanfm
+bindsym $mod+f exec --no-startup-id $term -e ranger
+bindsym $mod+Shift+p exec --no-startup-id sudo pcmanfm
+
+## -- Text Editors -- ##
+bindsym $mod1+a exec --no-startup-id atom
+bindsym $mod1+g exec --no-startup-id gedit
+bindsym $mod1+l exec --no-startup-id libreoffice
+bindsym $mod1+Shift+g exec --no-startup-id sudo gedit
+
+## -- Media Editors -- ##
+bindsym $mod1+e exec --no-startup-id easytag
+bindsym $mod1+p exec --no-startup-id gimp
+bindsym $mod1+b exec --no-startup-id brasero
+
+## -- Music/Video Players
+bindsym $mod1+v exec --no-startup-id vlc
+bindsym $mod1+n exec --no-startup-id $term -e ncmpcpp
+
+## -- Screen/Music Redorder -- ##
+bindsym $mod1+s exec --no-startup-id simplescreenrecorder
+
+## -- Browsers -- ##
+bindsym $mod1+w exec --no-startup-id waterfox
+bindsym $mod1+c exec --no-startup-id chromium
+
+## -- Conky Colors -- ##
+bindsym $mod+c exec --no-startup-id conky -c /home/zero/.conkycolors/conkyrc
+bindsym $mod+Shift+c kill conky-colors
+
+## -- Change Wallpaper -- ##
+bindsym $mod+w exec --no-startup-id feh --randomize --bg-scale /home/zero/Pictures/Wallpapers/*
