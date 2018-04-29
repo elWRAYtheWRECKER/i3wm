@@ -1,0 +1,45 @@
+
+!! Base Settings
+URxvt.termName: rxvt-unicode
+URxvt.saveLines: 1000
+URxvt.scrollBar: false
+
+!! Font Settings
+URxvt.font: xft:roboto:antialias=true:hinting=true:size=10:style=normal
+URxvt.letterSpace: -3
+
+!! Background and Foreground Settings
+URxvt.background: rgba:0000/0000/0200/c800
+URxvt.foreground: #F8F8F2
+URxvt.depth: 32
+
+!! Color Settings
+URxvt.color0: #272822
+URxvt.color1: #F92672
+URxvt.color2: #A6E22E
+URxvt.color3: #F4BF75
+URxvt.color4: #66D9EF
+URxvt.color5: #AE81FF
+URxvt.color6: #A1EFE4
+URxvt.color7: #F8F8F2
+URxvt.color8: #75715E
+URxvt.color9: #F92672
+URxvt.color10: #A6E22E
+URxvt.color11: #F4BF75
+URxvt.color12: #66D9EF
+URxvt.color13: #AE81FF
+URxvt.color14: #A1EFE4
+URxvt.color15: #F8F8F2
+
+!! Rofi Config
+rofi.color-enabled: true
+rofi.lines: 5
+rofi.eh: 1
+rofi.bw: 0
+rofi.width: 60
+rofi.font: roboto 12
+rofi.color-window: #393939, #393939, #268bd2
+rofi.color-normal: #393939, #ffffff, #393939, #268bd2, #ffffff
+rofi.color-active: #393939, #268bd2, #393939, #268bd2, #205171
+rofi.color-urgent: #393939, #f3843d, #393939, #268bd2, #ffc39c
+
