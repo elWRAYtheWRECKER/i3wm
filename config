@@ -101,6 +101,8 @@ for_window[class="Easytag"] move container to workspace $ws4
 for_window[class="libreoffice"] move container to workspace $ws5
 for_window[class="Thunderbird"] move container to workspace $ws6
 for_window[class="Deluge"] move container to workspace $ws6
+for_window[class="TorGuard"] move container to workspace $ws9
+for_window[class="Veracrypt"] move container to workspace $ws9
 
 
 
@@ -120,6 +122,14 @@ for_window[class="Gedit"] floating enable
 for_window[class="Gedit"] resize set 800 500
 for_window[class="Gedit"] move position center
 
+for_window[class="TorGuard"] floating enable, move position 10px 50px
+for_window[class="Torguard"] resize set 400 600
+
+for_window[class="Veracrypt"] floating enable, move position 390px 50px
+for_window[class="Veracrypt"] resize set 800 500
+
+
+
 ## -- Status Bar -- ##
 bar {
 	   mode hide
@@ -130,8 +140,7 @@ bar {
 ## -- Hide/Show Menu Bar -- ##
 bindsym $mod+m bar mode toggle
 
-	## -- Startup Applications -- ##
-## -- Background -- ##
+## -- Startup Applications -- ##
 exec --no-startup-id xmodmap ~/.Xmodmap
 exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 exec --no-startup-id compton --config /home/zero/.config/compton.conf
@@ -139,8 +148,11 @@ exec --no-startup-id conky -c /home/zero/.conkycolors/conkyrc
 exec --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id mpd
 exec --no-startup-id "sh -c 'sleep 13; exec termite -e ncmpcpp'"
-exec --no-startup-id "sh -c 'sleep 18; exec atom'"
-	## -- End Startup Applications -- ##
+exec --no-startup-id "sh -c 'sleep 17; exec sudo torguard'"
+exec --no-startup-id "sh -c 'sleep 21; exec veracrypt'"
+exec --no-startup-id "sh -c 'sleep 25; exec waterfox'"
+exec --no-startup-id "sh -c 'sleep 35; exec atom'"
+## -- End Startup Applications -- ##
 
 ## -- XF86 Keys -- ##
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 3+ unmute"
@@ -151,7 +163,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
 bindsym XF86AudioPlay exec mpc play
 bindsym XF86AudioPrev exec mpc prev
 bindsym XF86AudioNext exec mpc next
-bindsym Print exec "scrot -m '/home/zero/Pictures/Screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png'"
+bindsym Print exec --no-startup-id "scrot -m '/home/zero/Pictures/Screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png'"
 
 ## -- Restart i3 While Preserving Layout -- ##
 bindsym $mod+r restart
@@ -166,6 +178,7 @@ bindsym $mod+Shift+r exec $reboot
 bindsym $mod+Shift+Escape exec $shutdown
 
 ## -- i3lock -- ##
+## -- i3Cmatrix Lock -- ##
 bindsym $mod+l exec --no-startup-id /home/zero/.config/i3/matrixi3lock.sh
 
 ## -- Terminals -- ##
@@ -178,6 +191,7 @@ bindsym $mod+d exec --no-startup-id rofi -show run
 ## -- File Manager -- ##
 bindsym $mod+p exec --no-startup-id pcmanfm
 bindsym $mod+f exec --no-startup-id $term -e ranger
+bindsym $mod+v exec --no-startup-id veracrypt
 bindsym $mod+Shift+p exec --no-startup-id sudo pcmanfm
 
 ## -- Text Editors -- ##
@@ -198,13 +212,19 @@ bindsym $mod1+n exec --no-startup-id $term -e ncmpcpp
 ## -- Screen/Music Redorder -- ##
 bindsym $mod1+s exec --no-startup-id simplescreenrecorder
 
-## -- Browsers -- ##
+## -- Internet Browsers -- ##
 bindsym $mod1+w exec --no-startup-id waterfox
 bindsym $mod1+c exec --no-startup-id chromium
+bindsym $mod1+q exec --no-startup-id qutebrowser
+
+## -- Torrent -- ##
+bindsym $mod1+d exec --no-startup-id deluge
+
+## -- Virtual Private Network -- ##
+bindsym $mod1+t exec --no-startup-id sudo torguard
 
 ## -- Conky Colors -- ##
 bindsym $mod+c exec --no-startup-id conky -c /home/zero/.conkycolors/conkyrc
-bindsym $mod+Shift+c kill conky-colors
 
 ## -- Change Wallpaper -- ##
 bindsym $mod+w exec --no-startup-id feh --randomize --bg-scale /home/zero/Pictures/Wallpapers/*
